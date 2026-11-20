@@ -41,6 +41,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Task { @MainActor in
             Store.shared.startAPI()
             StatusItemController.shared = StatusItemController(store: Store.shared)
+            Demo.start()
+            guard !Demo.active else { return }
             Store.shared.startGitLabPolling()
             Store.shared.startCalendarPolling()
             Store.shared.startMailPolling()

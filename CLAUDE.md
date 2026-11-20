@@ -83,4 +83,5 @@ pertinentes et `jira_key` si ça concerne un ticket. Les facettes pilotent tout 
 - `GoogleCalendar.swift` : OAuth Google (loopback + PKCE, refresh token dans `google.json` 0600), événements, créneaux libres
 - `DiskCleaner.swift` + `Views/CleanerView.swift` : onglet Nettoyage (caches, builds de projets, gros fichiers, corbeille, désinstallation d'apps) ; caches supprimés définitivement, fichiers perso et apps → corbeille ; garde-fou `DiskScan.isRemovable` ; volontairement pas exposé dans l'API
 - `Profile` (Models.swift) : prénom + présentation de l'utilisateur injectés dans les prompts Ollama ; `Facets.waiting`, `Jira.projectKey`, `Jira.defaultProjectName` : tous lus dans les préférences, défauts neutres
+- `Demo.swift` : mode démo (`ORGANIZER_DEMO_DIR`) : données isolées, port 47899, aucune synchronisation, faux résultats de nettoyage, capture de la fenêtre (`ORGANIZER_SHOT`) ; `scripts/demo-data.py` + `scripts/screenshots.sh` régénèrent `docs/screenshots` — les captures du README ne doivent jamais venir des vraies données
 - `Views/` : Aujourd'hui, Chrono, Tableau (kanban), Backlog, Rapports, Projets, Réglages

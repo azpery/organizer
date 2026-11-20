@@ -42,7 +42,7 @@ final class Store: ObservableObject {
     private var apiServer: APIServer?
 
     init() {
-        let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        let dir = Demo.dir ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Organizer", isDirectory: true)
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         supportDir = dir
@@ -437,6 +437,7 @@ final class Store: ObservableObject {
 
 enum Config {
     static var apiPort: UInt16 {
+        if Demo.active { return Demo.port }
         let v = UserDefaults.standard.integer(forKey: "apiPort")
         return v > 0 && v < 65536 ? UInt16(v) : 47821
     }

@@ -372,11 +372,18 @@ final class DiskCleaner: ObservableObject {
     init() { refreshDisk() }
 
     func refreshDisk() {
+        if Demo.active { diskTotal = 500_000_000_000; diskFree = 61_300_000_000; return }
         let d = DiskScan.diskSpace()
         diskTotal = d.total; diskFree = d.free
     }
 
     func scan() {
+        if Demo.active {
+            categories = Demo.cleanCategories
+            selected = Set(categories.flatMap { $0.items.filter(\.preselected).map(\.id) })
+            lastScan = Date()
+            return
+        }
         scanTask?.cancel()
         scanning = true
         categories = []
@@ -406,7 +413,7 @@ final class DiskCleaner: ObservableObject {
     }
 
     func scanApps() {
-        guard !scanningApps else { return }
+        guard !scanningApps, !Demo.active else { return }
         scanningApps = true
         Task {
             var list = await Task.detached { DiskScan.applications() }.value

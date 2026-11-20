@@ -350,7 +350,7 @@ extension Store {
     }
 
     func refreshCalendar() async {
-        guard Agenda.isAvailable else { todayEvents = []; calendarError = nil; return }
+        guard !Demo.active, Agenda.isAvailable else { todayEvents = []; calendarError = nil; return }
         let cal = Calendar.app
         let start = cal.startOfDay(for: Date())
         do {
